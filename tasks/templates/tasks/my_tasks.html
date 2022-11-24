@@ -1,0 +1,8 @@
+{% extends 'tasks/header.html' %}
+
+{% block content %}
+{{authors.full_name}}
+{% for task in mytasks %}
+{{task.task_desc}} 
+{% endfor %}
+{% endblock content %}

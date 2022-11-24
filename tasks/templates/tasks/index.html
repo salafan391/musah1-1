@@ -1,0 +1,35 @@
+{% extends 'tasks/header.html' %}
+
+{% block content %}
+<h3 class="task_title">مهام جديدة</h3>
+<ul class="unorder_list">
+    {% for task in tasks  %}
+    <li class="list">
+        <h5>{{task.task_desc}}</h5>
+        <h5>بواسطة</h5>
+        {% for author in task.author.all %}
+            <p>{{author.first_name}} {{author.last_name}}</p>  
+        {% endfor %}
+                <h5>ينتهي وقت المهمة</h5>  
+        <p>{{task.time_end|date}}</p>
+    </li> 
+    {% endfor %}</ul>
+
+    <h3>الموظفون</h3>
+    <ul class="unorder_employees">
+        {% for employee in employees %}
+        <li>
+            <img src="{{employee.image.url}}" alt="">
+            <p>{{employee.first_name}}</p>
+            <p>{{employee.phone_number}}</p>
+            <p>{{employee.email}}</p>
+            <p><a href="{% url 'my_tasks' employee.pk %}">مهامي</a></p>
+            <p><a href="{% url 'update_user' employee.pk %}">تحديث مستخدم</a></p>
+        </li>
+        {% endfor %}
+        
+    </ul>
+    
+{% endblock content %}
+            
+   

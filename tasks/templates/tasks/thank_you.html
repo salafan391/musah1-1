@@ -1,0 +1,11 @@
+{% extends 'tasks/header.html' %}
+{% load static %}
+{% block content %}
+<div class="p-con">
+    <p class="finished">
+    تمت العملية بنجاح
+    </p>
+    <a href="{% url 'list' %}"><button class="btn btn-primary">عودة</button></a>
+</div>
+    
+{% endblock content %}

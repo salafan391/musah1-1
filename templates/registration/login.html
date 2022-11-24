@@ -1,0 +1,30 @@
+{% extends 'tasks/header.html' %}
+{% load static %}
+    {% block content %}
+        {% if form.errors %}
+<p>اسم المستخدم أو كلمة المرور غير صحيحة حاول مرة أخرى</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>الحساب الحالي لايملك صلاحية الدخول إلى هذه الصفحة</p>
+    {% else %}
+    <p>قم بتسجيل الدخول إلى هذه الصفحة</p>
+    {% endif %}
+{% endif %}
+<div class="form-container">
+<form class="container" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            {{field.label_tag}}
+            {{field}}
+        </div>
+        {% endfor %}
+    <input class="primary" type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+    <p><a href="{% url 'password_reset' %}">نسيت كلمة المرور</a></p>
+    </form>
+    {# Assumes you set up the password_reset view in your URLconf #}
+    {% endblock content %}
+    

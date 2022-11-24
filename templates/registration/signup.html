@@ -1,0 +1,19 @@
+{% extends 'tasks/header.html' %}
+{% load static %}
+{% block content %}
+    <div class="form_container">
+    <h4>قالب إضافة الموظفين</h4> 
+    <form class="container" action="" method="post">
+        {% csrf_token %}
+        <div > 
+            {% for field in form %}
+            <div class="mb-3">
+                {{field.label_tag}}
+                {{field}}
+            </div>
+            {% endfor %}
+            <input class="primary" type="submit" value="حفظ">
+        </div>
+    </div>
+    </form>
+{% endblock content %}

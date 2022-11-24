@@ -1,0 +1,10 @@
+{% extends 'tasks/header.html' %}
+{% block content %}
+    <h1>المهام المنجزة</h1>
+    <ul>
+        {% for a in accs %}
+        <li>{{a}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}
+    

@@ -1,0 +1,13 @@
+{% extends 'tasks/header.html' %}
+{% block content %}
+    <h1>تفاصيل المهمة</h1>
+    <h3>عنوان المهمة</h3>
+    <p>{{task.task_desc}}</p>
+    <h3> المسئول عن التنفيذ</h3>
+    {% for author in authors %}
+       <p>{{author}} </p>
+    {% endfor %}
+    <p>حالة الإنجاز
+        {{task.status}}</p>
+{% endblock content %}
+    
