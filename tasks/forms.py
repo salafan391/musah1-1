@@ -11,8 +11,8 @@ class TaskForm(ModelForm):
         model = TaskAssighn
         exclude=['status','reason']
         labels = {
-            'task_desc': 'وصف المهمة',
-            'author': 'الموظف',
+            'task_desc': '',
+            'author': '',
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
             'time_start': "بدء المهمة",
