@@ -6,13 +6,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,Usern
 class UserLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__( *args, **kwargs)
-        self.fields['username'].widget.attrs.update({
-            'placeholder':'اسم المستخدم',
-            'class':'form-label',
-            'class':'form-control',
-
-        })
-
+        UsernameField(widget={'placeholder':'اسم المستخدم'})
 class TaskForm(ModelForm):
     class Meta:
         model = TaskAssighn
