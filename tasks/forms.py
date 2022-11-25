@@ -4,10 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,UsernameField
 
 class UserLoginForm(AuthenticationForm):
-    def __init__(self, request, *args, **kwargs):
-        super().__init__(request, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__( *args, **kwargs)
         self.fields['username'].widget.attrs.update({
-            'placeholder':'اسم المستخدم'
+            'placeholder':'اسم المستخدم',
+            'class':'form-label',
+            'class':'form-control',
+
         })
 
 class TaskForm(ModelForm):
