@@ -1,13 +1,15 @@
 from django.forms import *
 from .models import TaskAssighn,TaskStatus
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
 
 
 
 class TaskForm(ModelForm):
     class Meta:
         model = TaskAssighn
-        exclude = ['status','reason']
+        exclude=['status','reason']
         labels = {
             'task_desc': 'وصف المهمة',
             'author': 'الموظف',
@@ -15,50 +17,53 @@ class TaskForm(ModelForm):
             'updated_at': "تم الإنشاء بتاريخ",
             'time_start': "بدء المهمة",
             'time_end': "نهاية المهمة",
-            
-
         }
         widgets = {
-            'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control"}),
-            'time_start': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control"}),
-            'time_end': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control"}),
-            'url':URLInput(attrs={'class': "form-label", 'class': "form-control"})
-
+            'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
+            'time_start': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control",'placeholder':'بدء المهمة'}),
+            'time_end': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control",'placeholder':'نهاية المهمة'}),
+            'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
+            'رابط الملفات على الدرايف'}),
 
         }
 
 
-class AddUserForm(ModelForm):
+class AddUserForm(UserCreationForm):
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs.update({
+            'placeholder':'كلمة المرور',
+            'class':'form-label',
+            'class':'form-control',
+
+        })
+        self.fields['password2'].widget.attrs.update({
+            'placeholder':'تأكيد كلمة المرور',
+            'class':'form-label',
+            'class':'form-control',
+            
+        })
     class Meta:
         model = User
-        fields= '__all__'
-        exclude = [
-            'user_permissions',
-            'last_login',
-            'is_superuser',
-            'groups',
-            'date_joined',
-            'is_active',
-            'is_staff']
-        labels = {
-            'username': 'اسم المستخدم',
-            'password': 'كلمة المرور',
-            'email': 'البريد الإلكتروني',
-            'first_name':'الاسم الأول',
-            'last_name':'اللقب'
-
-        }
+        fields= ['username','email','first_name','last_name']
         widgets = {
-            'first_name': TextInput(attrs={'class': "form-label", 'class': "form-control"}),
-            'username': TextInput(attrs={'class': "form-label", 'class': "form-control"}),
-            'email': EmailInput(attrs={'class': "form-label", 'class': "form-control"}),
-            'password':PasswordInput(attrs={'class': "form-label", 'class': "form-control"}),
-            'last_name':TextInput(attrs={'class': "form-label", 'class': "form-control"})
+            'first_name': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'الاسم الأول'}),
+            'username': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'اسم المستخدم'}),
+            'email': EmailInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'البريد الإلكتروني'}),
+            'last_name':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'اللقب'})
         }   
 class UpdateForm(ModelForm):
     class Meta:
-        model = TaskStatus
-        fields ='__all__'
+        model = TaskAssighn
+        fields = ['status','reason']
         widgets={
-            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'pleceholder':'في حال عدم الإنجاز يرجى ذكر السبب'})
+            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'pleceholder':'في حال عدم الإنجاز يرجى ذكر السبب','helptext':'اذكر السبب'})
+        }
+
+class CreateStatus(ModelForm):
+    class Meta:
+        model = TaskStatus
+        fields = '__all__'
+        widgets={
+            'state':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
         }

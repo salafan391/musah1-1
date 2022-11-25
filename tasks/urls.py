@@ -11,4 +11,5 @@ urlpatterns = [
     path('thank_you/',views.thank_you,name='thank_you'),
     path('task_add/my_tasks/<int:pk>',views.mytasks,name='my_tasks'),
     path('add_user/<int:pk>/update',views.UpdateUserView.as_view(),name='update_user'),
+    path('status/',views.CreateStatusView.as_view(),name='status')
 ]

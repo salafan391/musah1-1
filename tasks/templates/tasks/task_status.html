@@ -1,0 +1,17 @@
+{% extends 'tasks/header.html' %}
+{% block content %}
+<div class="form_container">
+    <h4>قالب إضافة حالة الانجاز</h4> 
+    <form class="container" action="" method="post">
+        {% csrf_token %}
+        <div > 
+            {% for field in form %}
+            <div class="mb-3">
+                {{field}}
+            </div>
+            {% endfor %}
+            <input class="primary" type="submit" value="حفظ">
+        </div>
+    </div>
+    </form>
+{% endblock content %}

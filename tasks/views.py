@@ -1,7 +1,6 @@
-from django.shortcuts import render,redirect
-from .forms import TaskForm,AddUserForm,UpdateForm
+from django.shortcuts import render
+from .forms import TaskForm,AddUserForm,UpdateForm,CreateStatus
 from .models import TaskAssighn,TaskStatus
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
 # Create your views here.
@@ -36,15 +35,17 @@ def task_detail(request, pk):
         )
 
 
-class UpdateStatus(UpdateView):
-    template_name = 'tasks/taskassighn_form.html'
+class CreateStatusView(CreateView):
+    template_name = 'tasks/task_status.html'
     model = TaskStatus
-    form_class = UpdateForm
+    form_class = CreateStatus
     success_url = '/thank_you'
 
 
+
+
 def completed(request):
-    acc = TaskAssighn.objects.filter(status='منجزة')
+    acc = TaskAssighn.objects.filter(status=2)
     return render(request, 'tasks/finished_tasks.html', {'accs': acc})
 
 
@@ -52,8 +53,8 @@ def login(request):
     return render(request,'registration/login.html')
 
 class AddUserView(CreateView):
-    form_class = UserCreationForm
-    success_url = '/login'
+    form_class = AddUserForm
+    success_url = 'index'
     template_name = 'tasks/add_user.html'
 
 def thank_you(request):
@@ -68,6 +69,13 @@ def mytasks(request,pk):
         })
 
 class UpdateUserView(UpdateView):
-    form_class = UserCreationForm
+    model = User
+    form_class = AddUserForm
     success_url = '/thank_you'
     template_name = 'tasks/add_user.html'
+
+class UpdateStatus(UpdateView):
+    model = TaskAssighn
+    form_class = UpdateForm
+    template_name = 'tasks/taskassighn_form.html'
+    success_url = '/thank_you'
