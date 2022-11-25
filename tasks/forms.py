@@ -3,7 +3,12 @@ from .models import TaskAssighn,TaskStatus
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,UsernameField
 
-
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, request, *args, **kwargs):
+        super().__init__(request, *args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'placeholder':'اسم المستخدم'
+        })
 
 class TaskForm(ModelForm):
     class Meta:
