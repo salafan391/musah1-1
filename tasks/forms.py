@@ -1,12 +1,10 @@
 from django.forms import *
 from .models import TaskAssighn,TaskStatus
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm,UsernameField
+from django.contrib.auth.forms import UserCreationForm
 
-class UserLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__( *args, **kwargs)
-        UsernameField(widget={'placeholder':'اسم المستخدم'})
+
+
 class TaskForm(ModelForm):
     class Meta:
         model = TaskAssighn
@@ -57,8 +55,12 @@ class UpdateForm(ModelForm):
     class Meta:
         model = TaskAssighn
         fields = ['status','reason']
+        labels={
+            'status':'الحالة',
+            'reason':'ملاحظات إضافية'
+        }
         widgets={
-            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'pleceholder':'في حال عدم الإنجاز يرجى ذكر السبب','helptext':'اذكر السبب'})
+            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control"})
         }
 
 class CreateStatus(ModelForm):
