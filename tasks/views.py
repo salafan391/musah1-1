@@ -11,7 +11,7 @@ def index(request):
     employees = User.objects.all()
     return render(request, 'tasks/index.html', {
         'tasks': task,
-        'employees':employees,
+        'employees':employees
     })
 
 
@@ -30,11 +30,8 @@ def task_detail(request, pk):
     task = TaskAssighn.objects.get(pk=pk)
     return render(request, 'tasks/detail.html', {
         'task': task,
-        'authors':task.author.all()
     }
         )
-
-
 class CreateStatusView(CreateView):
     template_name = 'tasks/task_status.html'
     model = TaskStatus
@@ -49,8 +46,6 @@ def completed(request):
     return render(request, 'tasks/finished_tasks.html', {'accs': acc})
 
 
-def login(request):
-    return render(request,'registration/login.html')
 
 class AddUserView(CreateView):
     form_class = AddUserForm
@@ -60,13 +55,6 @@ class AddUserView(CreateView):
 def thank_you(request):
     return render(request,'tasks/thank_you.html')
 
-def mytasks(request,pk):
-    authors = User.objects.get(pk= pk)
-    mytask = TaskAssighn.objects.filter()
-    return render(request,'tasks/my_tasks.html',{
-        'authors':authors,
-        'mytasks':mytask
-        })
 
 class UpdateUserView(UpdateView):
     model = User

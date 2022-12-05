@@ -3,27 +3,25 @@ from .models import TaskAssighn,TaskStatus
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-
-
 class TaskForm(ModelForm):
     class Meta:
         model = TaskAssighn
-        exclude=['status','reason']
+        exclude=['status']
         labels = {
             'task_desc': '',
-            'author': '',
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
-            'time_start': "بدء المهمة",
-            'time_end': "نهاية المهمة",
+            'url':'',
+            'task_number':''
+        }
+        error_messages={
+            'enter a number':'يجب أن تدخل رقما'
         }
         widgets = {
+            'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
             'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
-            'time_start': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control",'placeholder':'بدء المهمة'}),
-            'time_end': DateTimeInput(attrs={'type': 'datetime-local', 'class': "form-label", 'class': "form-control",'placeholder':'نهاية المهمة'}),
             'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
             'رابط الملفات على الدرايف'}),
-
         }
 
 
@@ -53,10 +51,10 @@ class AddUserForm(UserCreationForm):
         }   
 class UpdateForm(ModelForm):
     class Meta:
-        model = TaskAssighn
-        fields = ['status','reason']
+        model = TaskStatus
+        fields = ['state','reason']
         labels={
-            'status':'الحالة',
+            'state':'الحالة',
             'reason':'ملاحظات إضافية'
         }
         widgets={
@@ -67,6 +65,13 @@ class CreateStatus(ModelForm):
     class Meta:
         model = TaskStatus
         fields = '__all__'
+        labels={
+            'state':'الحالة',
+            'task':'المهمة',
+            'reason':''
+        }
         widgets={
-            'state':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
+            'state':SelectMultiple(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
+            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'placeholder':'ملاحظات إضافية'}),
+
         }

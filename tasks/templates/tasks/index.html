@@ -15,20 +15,6 @@
     </li> 
     {% endfor %}</ul>
 
-    <h3>الموظفون</h3>
-    <ul class="unorder_employees">
-        {% for employee in employees %}
-        <li>
-            <img src="{{employee.image.url}}" alt="">
-            <p>{{employee.first_name}}</p>
-            <p>{{employee.phone_number}}</p>
-            <p>{{employee.email}}</p>
-            <p><a href="{% url 'my_tasks' employee.pk %}">مهامي</a></p>
-            <p><a href="{% url 'update_user' employee.pk %}">تحديث مستخدم</a></p>
-        </li>
-        {% endfor %}
-        
-    </ul>
     
 {% endblock content %}
             
