@@ -41,7 +41,7 @@ class CreateStatusView(CreateView):
 
 
 def completed(request):
-    acc = TaskAssighn.objects.filter(status='منجزة')
+    acc = TaskAssighn.objects.all()
     return render(request, 'tasks/finished_tasks.html', {'accs': acc})
 
 
