@@ -1,0 +1,10 @@
+{% extends 'tasks/header.html' %}
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <p>هل أنت متأكد من حذف {{task.desc}}</p>
+        <button><a href="{{request.META.HTTP_REFERER}}">تراجع</a></button>
+        <input type="submit" value="حذف">
+    </form>
+
+{% endblock content %}

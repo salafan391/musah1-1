@@ -15,15 +15,16 @@
 <div class="form-container">
 <form class="container" method="post" action="{% url 'login' %}">
     {% csrf_token %}
-        {% for field in form %}
         <div class="mb-3">
-            {{field.label_tag}}
-            {{field}}
+            <input type="text" name="username" class="form-control" placeholder="اسم المستخدم">
         </div>
-        {% endfor %}
-    <input class="primary" type="submit" value="login">
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="كلمة المرور">
+        </div>
+        
+    <input class="primary" type="submit" value="تسجيل الدخول">
     <input type="hidden" name="next" value="{{ next }}">
-    <p><a href="{% url 'password_reset' %}">نسيت كلمة المرور</a></p>
+
     </form>
     {# Assumes you set up the password_reset view in your URLconf #}
     {% endblock content %}

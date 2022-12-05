@@ -2,20 +2,27 @@
 
 {% block content %}
 <h3 class="task_title">مهام جديدة</h3>
-<ul class="unorder_list">
-    {% for task in tasks  %}
-    <li class="list">
-        <h5>{{task.task_desc}}</h5>
-        <h5>بواسطة</h5>
-        {% for author in task.author.all %}
-            <p>{{author.first_name}} {{author.last_name}}</p>  
-        {% endfor %}
-                <h5>ينتهي وقت المهمة</h5>  
-        <p>{{task.time_end|date}}</p>
-    </li> 
-    {% endfor %}</ul>
-
-    
+   
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">رقم المهمة</th>
+            <th scope="col">وصف المهمة</th>
+            <th scope="col">رابط الملفات</th>
+            <th scope="col">حالة الإنجاز</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks  %}
+          <tr>
+            <td>{{task.task_number}}</td>
+            <td>{{task.desc}}</td>
+            <td>{{task.url}}</td>
+            <td>{{task.status}}</td>
+          </tr> 
+          {% endfor %}
+        </tbody>
+      </table>
 {% endblock content %}
             
    

@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from .forms import TaskForm,AddUserForm,UpdateForm,CreateStatus
 from .models import TaskAssighn,TaskStatus
 from django.contrib.auth.models import User
@@ -8,17 +9,15 @@ from django.views.generic.edit import CreateView, UpdateView
 
 def index(request):
     task = TaskAssighn.objects.all().order_by('-created_at')
-    employees = User.objects.all()
     return render(request, 'tasks/index.html', {
         'tasks': task,
-        'employees':employees
     })
 
 
 class TaskAddView(CreateView):
     model = TaskAssighn
     form_class = TaskForm
-    success_url = '/thank_you'
+    success_url = reverse_lazy('index')
 
 
 def list_task(request):
@@ -36,13 +35,13 @@ class CreateStatusView(CreateView):
     template_name = 'tasks/task_status.html'
     model = TaskStatus
     form_class = CreateStatus
-    success_url = '/thank_you'
+    success_url = reverse_lazy('thank_you')
 
 
 
 
 def completed(request):
-    acc = TaskAssighn.objects.filter(status=2)
+    acc = TaskAssighn.objects.filter(status=acc)
     return render(request, 'tasks/finished_tasks.html', {'accs': acc})
 
 
@@ -67,3 +66,10 @@ class UpdateStatus(UpdateView):
     form_class = UpdateForm
     template_name = 'tasks/taskassighn_form.html'
     success_url = '/thank_you'
+
+def delete_task(request,pk):
+    task = TaskAssighn.objects.get(pk=pk)
+    if request.method == 'POST':
+        task.delete()
+        return redirect('thank_you')
+    return render(request,'tasks/delete.html',{'task':task})

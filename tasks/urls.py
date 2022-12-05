@@ -10,5 +10,6 @@ urlpatterns = [
     path('add_user/',views.AddUserView.as_view(),name='user'),
     path('thank_you/',views.thank_you,name='thank_you'),
     path('add_user/<int:pk>/update',views.UpdateUserView.as_view(),name='update_user'),
+    path('add_user/delete/<int:pk>',views.delete_task,name='delete'),
     path('status/',views.CreateStatusView.as_view(),name='status'),
 ]
