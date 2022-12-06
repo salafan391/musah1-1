@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .forms import TaskForm,AddUserForm,UpdateForm,CreateStatus
-from .models import TaskAssighn,TaskStatus
+from .forms import TaskForm,AddUserForm,UpdateForm
+from .models import TaskAssighn
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
 # Create your views here.
@@ -20,29 +20,16 @@ class TaskAddView(CreateView):
     success_url = reverse_lazy('index')
 
 
-def list_task(request):
-    tasks = TaskAssighn.objects.all()
-    return render(request, 'tasks/list_tasks.html', {'tasks': tasks})
 
 
-def task_detail(request, pk):
-    task = TaskAssighn.objects.get(pk=pk)
-    return render(request, 'tasks/detail.html', {
-        'task': task,
-    }
-        )
-class CreateStatusView(CreateView):
-    template_name = 'tasks/task_status.html'
-    model = TaskStatus
-    form_class = CreateStatus
-    success_url = reverse_lazy('thank_you')
+
+
 
 
 
 
 def completed(request):
-    acc = TaskAssighn.objects.all()
-    return render(request, 'tasks/finished_tasks.html', {'accs': acc})
+    return render(request, 'tasks/finished_tasks.html', {})
 
 
 
@@ -58,18 +45,29 @@ def thank_you(request):
 class UpdateUserView(UpdateView):
     model = User
     form_class = AddUserForm
-    success_url = '/thank_you'
+    success_url = reverse_lazy('index')
     template_name = 'tasks/add_user.html'
 
 class UpdateStatus(UpdateView):
     model = TaskAssighn
     form_class = UpdateForm
     template_name = 'tasks/taskassighn_form.html'
-    success_url = '/thank_you'
+    success_url = reverse_lazy('index')
 
 def delete_task(request,pk):
     task = TaskAssighn.objects.get(pk=pk)
     if request.method == 'POST':
         task.delete()
-        return redirect('thank_you')
+        return redirect('index')
     return render(request,'tasks/delete.html',{'task':task})
+
+
+def update_task(request,pk):
+    upadte_form = TaskAssighn.objects.get(pk=pk)
+    form = TaskForm(instance=upadte_form)
+    if request.method == 'POST':
+        form = TaskForm(request.POST,instance=upadte_form )
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    return render(request,'tasks/taskassighn_form.html',{'form':form})

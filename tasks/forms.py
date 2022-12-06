@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 class TaskForm(ModelForm):
     class Meta:
         model = TaskAssighn
-        exclude=['status']
+        exclude=['status','reason']
         labels = {
             'task_desc': '',
             'created_at': "تم الإنشاء بتاريخ",
@@ -51,10 +51,10 @@ class AddUserForm(UserCreationForm):
         }   
 class UpdateForm(ModelForm):
     class Meta:
-        model = TaskStatus
-        fields = ['state','reason']
+        model = TaskAssighn
+        fields = ['status','reason']
         labels={
-            'state':'الحالة',
+            'status':'الحالة',
             'reason':'ملاحظات إضافية'
         }
         widgets={

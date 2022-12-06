@@ -28,9 +28,6 @@
                 <a class="nav-link" href="{% url 'task_add' %}">إضافة مهمة جديدة</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'status' %}">تعيين حالة الانجاز</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="{% url 'user' %}">موظف جديد</a>
               </li>
               <li class="nav-item dropdown">
@@ -38,14 +35,12 @@
                   أدارة المهام
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'list' %} ">قائمة المهام</a></li>
-                  <li><a class="dropdown-item" href="{% url 'completed' %} ">المهام المنجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'completed' %} ">المنجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'completed' %} ">غير منجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'completed' %} ">تحت الإجراء</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">  </a></li>
+                  <li><a class="dropdown-item" href="#"></a></li>
                 </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">غير فعال</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
@@ -79,10 +74,10 @@
                   أدارة المهام
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'list' %} ">قائمة المهام</a></li>
+                  <li><a class="dropdown-item" href="">قائمة المهام</a></li>
                   <li><a class="dropdown-item" href="{% url 'completed' %} ">المهام المنجزة</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">  </a></li>
+                  <li><a class="dropdown-item" href="#"></a></li>
                 </ul>
               </li>
               <li class="nav-item">
