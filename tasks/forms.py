@@ -26,32 +26,6 @@ class TaskForm(ModelForm):
             'employee': SelectMultiple(attrs={'class': "form-label", 'class': "form-control"}),
 
         }
-class UpdateTaskForm(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = '__all__'
-        labels = {
-            'task_desc': '',
-            'created_at': "تم الإنشاء بتاريخ",
-            'updated_at': "تم الإنشاء بتاريخ",
-            'url':'',
-            'task_number':'',
-            'employee':'الموظف',
-            'status':'الحالة',
-            'reason':''
-        }
-        error_messages={
-            'enter a number':'يجب أن تدخل رقما'
-        }
-        widgets = {
-            'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
-            'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
-            'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
-            'رابط الملفات على الدرايف'}),
-            'employee': SelectMultiple(attrs={'class': "form-label", 'class': "form-control"}),
-            'reason': Textarea(attrs={'class': "form-label", 'class': "form-control",'placeholder':'الملاحظات'}),
-            'status': SelectMultiple(attrs={'class': "form-label", 'class': "form-control"}),
-        }
 
 
 class AddUserForm(UserCreationForm):
@@ -113,3 +87,7 @@ class AddEmployeeForm(ModelForm):
             'job_status':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'المسمى الوظيفي'})
         }
 
+class UpdateEmployeeStatus(ModelForm):
+    class Meta:
+        model = TaskAssighn
+        fields = ['employee']
