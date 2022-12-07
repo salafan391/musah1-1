@@ -47,7 +47,6 @@
             </td>
             <td><a href="{% url 'update_task' task.pk %}">{{task.task_desc}}</a></td>
         
->>>>>>> ba14bc58c7e2efd5d86376cdf68de8f74a199d8b
             <td>
               {% if task.status is None %}
                 <a href="{% url 'update_status' task.pk%}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-battery-half" viewBox="0 0 16 16">
