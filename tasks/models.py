@@ -20,7 +20,6 @@ class TaskAssighn(models.Model):
     task_desc = models.CharField(max_length=200,null=True)
     status = models.ForeignKey(TaskStatus,null=True,blank=True,on_delete=models.SET_NULL)
     reason = models.CharField(max_length=400,null=True,blank=True)
-    url = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

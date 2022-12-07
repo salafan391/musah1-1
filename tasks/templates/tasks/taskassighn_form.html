@@ -1,10 +1,16 @@
 {% extends 'tasks/header.html' %}
 {% load static %}
 {% block content %}
+
     <div class="form_container">
         <h4>قالب إضافة المهام</h4> 
+        
     <form class="container" action="" method="post">
         {% csrf_token %}
+        {% if tasks.task_number|add:+1 %}
+        <label class="form-label" for="empty">الرقم الشاغر</label>
+        <input style="width: 80px;" class="form-control" type="text" name="empty" disabled value="{{tasks.task_number|add:+1}}">
+        {% endif %}
         {% for field in form %}
         <div class="mb-3">
             {{field.label_tag}}
@@ -12,7 +18,6 @@
         </div>
         {% endfor %}
         <button class="primary" type="submit">حفظ</button>
-       
     </form>
 </div>
 
