@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .forms import TaskForm,AddUserForm,UpdateForm
+from .forms import *
 from .models import TaskAssighn
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
@@ -64,9 +64,19 @@ def delete_task(request,pk):
 
 def update_task(request,pk):
     upadte_form = TaskAssighn.objects.get(pk=pk)
-    form = TaskForm(instance=upadte_form)
+    form = TaskFormUpdate(instance=upadte_form)
     if request.method == 'POST':
-        form = TaskForm(request.POST,instance=upadte_form )
+        form = TaskFormUpdate(request.POST,instance=upadte_form )
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    return render(request,'tasks/taskassighn_form.html',{'form':form})
+
+def update_url(request,pk):
+    upadte_form = TaskAssighn.objects.get(pk=pk)
+    form = UpdateUrl(instance=upadte_form)
+    if request.method == 'POST':
+        form = UpdateUrl(request.POST,instance=upadte_form )
         if form.is_valid():
             form.save()
             return redirect('index')

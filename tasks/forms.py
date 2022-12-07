@@ -24,6 +24,28 @@ class TaskForm(ModelForm):
             'رابط الملفات على الدرايف'}),
         }
 
+class TaskFormUpdate(ModelForm):
+    class Meta:
+        model = TaskAssighn
+        fields='__all__'
+        labels = {
+            'task_desc': '',
+            'created_at': "تم الإنشاء بتاريخ",
+            'updated_at': "تم الإنشاء بتاريخ",
+            'url':'',
+            'task_number':'',
+            'status':'الحالة',
+            'reason':'ملاحظات'
+        }
+        
+        widgets = {
+            'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
+            'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
+            'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
+            'رابط الملفات على الدرايف'}),
+            'resaon': Textarea(attrs={'class': "form-label", 'class': "form-control"})
+        }
+
 
 class AddUserForm(UserCreationForm):
     def __init__(self, *args,**kwargs):
@@ -74,4 +96,18 @@ class CreateStatus(ModelForm):
             'state':SelectMultiple(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
             'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'placeholder':'ملاحظات إضافية'}),
 
+        }
+class UpdateUrl(ModelForm):
+    class Meta:
+        model = TaskAssighn
+        fields = ['url']
+        labels = {
+            'url':''
+        }
+        widgets={
+            'url':URLInput(attrs={
+                'class': "form-label",
+                 'class': "form-control",'placeholder':'رابط الملف'})
+
+            
         }
