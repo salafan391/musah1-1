@@ -64,9 +64,9 @@ def delete_task(request,pk):
 
 def update_task(request,pk):
     upadte_form = TaskAssighn.objects.get(pk=pk)
-    form = TaskForm(instance=upadte_form)
+    form = UpdateTaskForm(instance=upadte_form)
     if request.method == 'POST':
-        form = TaskForm(request.POST,instance=upadte_form )
+        form = UpdateTaskForm(request.POST,instance=upadte_form )
         if form.is_valid():
             form.save()
             return redirect('index')
@@ -75,5 +75,6 @@ def update_task(request,pk):
 class AddEmployeeView(CreateView):
     model = EmployeeAdd
     form_class = AddEmployeeForm
-    success_url = 'index'
+    success_url = reverse_lazy('index')
     template_name = 'tasks/add_employee.html'
+
