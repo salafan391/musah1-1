@@ -1,5 +1,5 @@
 from django.forms import *
-from .models import TaskAssighn,TaskStatus
+from .models import TaskAssighn,TaskStatus,EmployeeAdd
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -12,7 +12,8 @@ class TaskForm(ModelForm):
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
             'url':'',
-            'task_number':''
+            'task_number':'',
+            'employee':'الموظف'
         }
         error_messages={
             'enter a number':'يجب أن تدخل رقما'
@@ -22,6 +23,8 @@ class TaskForm(ModelForm):
             'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
             'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
             'رابط الملفات على الدرايف'}),
+            'employee': SelectMultiple(attrs={'class': "form-label", 'class': "form-control"}),
+
         }
 
 class TaskFormUpdate(ModelForm):
@@ -97,17 +100,16 @@ class CreateStatus(ModelForm):
             'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'placeholder':'ملاحظات إضافية'}),
 
         }
-class UpdateUrl(ModelForm):
+class AddEmployeeForm(ModelForm):
+    class Meta:
+        model = EmployeeAdd
+        fields = '__all__'
+        widgets = {
+            'full_name':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'الاسم الكامل'}),
+            'job_status':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'المسمى الوظيفي'})
+        }
+
+class UpdateEmployeeStatus(ModelForm):
     class Meta:
         model = TaskAssighn
-        fields = ['url']
-        labels = {
-            'url':''
-        }
-        widgets={
-            'url':URLInput(attrs={
-                'class': "form-label",
-                 'class': "form-control",'placeholder':'رابط الملف'})
-
-            
-        }
+        fields = ['employee']

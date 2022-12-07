@@ -8,7 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView
 
 
 def index(request):
-    task = TaskAssighn.objects.all().order_by('-created_at')
+    task = TaskAssighn.objects.all()
     return render(request, 'tasks/index.html', {
         'tasks': task,
     })
@@ -18,19 +18,15 @@ class TaskAddView(CreateView):
     model = TaskAssighn
     form_class = TaskForm
     success_url = reverse_lazy('index')
-
-
-
-
-
-
-
-
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = TaskAssighn.objects.all()
+        return queryset
+        
 
 
 def completed(request):
     return render(request, 'tasks/finished_tasks.html', {})
-
 
 
 class AddUserView(CreateView):
@@ -38,8 +34,9 @@ class AddUserView(CreateView):
     success_url = 'index'
     template_name = 'tasks/add_user.html'
 
+
 def thank_you(request):
-    return render(request,'tasks/thank_you.html')
+    return render(request, 'tasks/thank_you.html')
 
 
 class UpdateUserView(UpdateView):
@@ -48,21 +45,23 @@ class UpdateUserView(UpdateView):
     success_url = reverse_lazy('index')
     template_name = 'tasks/add_user.html'
 
+
 class UpdateStatus(UpdateView):
     model = TaskAssighn
     form_class = UpdateForm
     template_name = 'tasks/taskassighn_form.html'
     success_url = reverse_lazy('index')
 
-def delete_task(request,pk):
+
+def delete_task(request, pk):
     task = TaskAssighn.objects.get(pk=pk)
     if request.method == 'POST':
         task.delete()
         return redirect('index')
-    return render(request,'tasks/delete.html',{'task':task})
+    return render(request, 'tasks/delete.html', {'task': task})
 
 
-def update_task(request,pk):
+def update_task(request, pk):
     upadte_form = TaskAssighn.objects.get(pk=pk)
     form = TaskFormUpdate(instance=upadte_form)
     if request.method == 'POST':
@@ -72,12 +71,9 @@ def update_task(request,pk):
             return redirect('index')
     return render(request,'tasks/taskassighn_form.html',{'form':form})
 
-def update_url(request,pk):
-    upadte_form = TaskAssighn.objects.get(pk=pk)
-    form = UpdateUrl(instance=upadte_form)
-    if request.method == 'POST':
-        form = UpdateUrl(request.POST,instance=upadte_form )
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    return render(request,'tasks/taskassighn_form.html',{'form':form})
+
+class AddEmployeeView(CreateView):
+    model = EmployeeAdd
+    form_class = AddEmployeeForm
+    success_url = reverse_lazy('index')
+    template_name = 'tasks/add_employee.html'
