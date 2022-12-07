@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .forms import TaskForm,AddUserForm,UpdateForm
+from .forms import *
 from .models import TaskAssighn
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
@@ -71,3 +71,9 @@ def update_task(request,pk):
             form.save()
             return redirect('index')
     return render(request,'tasks/taskassighn_form.html',{'form':form})
+
+class AddEmployeeView(CreateView):
+    model = EmployeeAdd
+    form_class = AddEmployeeForm
+    success_url = 'index'
+    template_name = 'tasks/add_employee.html'

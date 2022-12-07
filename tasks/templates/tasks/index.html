@@ -7,6 +7,7 @@
         <thead>
           <tr>
             <th scope="col">رقم المهمة</th>
+            <th scope="col">الموظف</th>
             <th scope="col">وصف المهمة</th>
             <th scope="col">رابط الملفات</th>
             <th scope="col">حالة الإنجاز</th>
@@ -20,6 +21,7 @@
             {% for task in tasks  %}
           <tr>
             <td>{{task.task_number}}</td>
+            <td>{{task.employee}}</td>
             <td>{{task.task_desc}}</td>
             <td>
               {% if task.url is None %}
