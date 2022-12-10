@@ -11,12 +11,8 @@ class TaskForm(ModelForm):
             'task_desc': '',
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
-         
             'task_number':'',
             'employee':'الموظف'
-        }
-        error_messages={
-            'enter a number':'يجب أن تدخل رقما'
         }
         widgets = {
             'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
@@ -30,10 +26,10 @@ class TaskFormUpdate(ModelForm):
         model = TaskAssighn
         fields='__all__'
         labels = {
+            'employee':'الموظف',
             'task_desc': '',
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
-            'url':'',
             'task_number':'',
             'status':'الحالة',
             'reason':'ملاحظات'
@@ -42,8 +38,6 @@ class TaskFormUpdate(ModelForm):
         widgets = {
             'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
             'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
-            'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
-            'رابط الملفات على الدرايف'}),
             'resaon': Textarea(attrs={'class': "form-label", 'class': "form-control"})
         }
 
@@ -72,17 +66,6 @@ class AddUserForm(UserCreationForm):
             'email': EmailInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'البريد الإلكتروني'}),
             'last_name':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'اللقب'})
         }   
-class UpdateForm(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = ['status','reason']
-        labels={
-            'status':'الحالة',
-            'reason':'ملاحظات إضافية'
-        }
-        widgets={
-            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control"})
-        }
 
 class CreateStatus(ModelForm):
     class Meta:
@@ -107,27 +90,7 @@ class AddEmployeeForm(ModelForm):
             'job_status':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'المسمى الوظيفي'})
         }
 
-class UpdateEmployeeStatus(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = ['employee']
-        labels = {
-            'employee':'الموظف'
-        }
-        widgets={
-              'employee': Select(attrs={'class': "form-label", 'class': "form-control"}),
 
-        }
-class UpdateReasonStatus(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = ['reason']
-        labels = {
-            'reason':'ملاحظات'
-        }
-        widgets={
-              'reason': Textarea(attrs={'class': "form-label", 'class': "form-control"}),
 
-        }
 
 
