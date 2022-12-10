@@ -13,7 +13,8 @@ def index(request):
     tasks = TaskAssighn.objects.filter(
         Q(task_desc__icontains=q)|
         Q(employee__job_status__icontains=q)|
-        Q(status__state__icontains=q)
+        Q(status__state__icontains=q)|
+        Q(reason__icontains=q)
     )
     return render(request, 'tasks/index.html', {
         'tasks': tasks,
