@@ -59,12 +59,6 @@ class UpdateUserView(UpdateView):
     template_name = 'tasks/add_user.html'
 
 
-class UpdateStatus(UpdateView):
-    model = TaskAssighn
-    form_class = UpdateForm
-    template_name = 'tasks/taskassighn_form.html'
-    success_url = reverse_lazy('index')
-
 
 def delete_task(request, pk):
     task = TaskAssighn.objects.get(pk=pk)
@@ -91,22 +85,5 @@ class AddEmployeeView(CreateView):
     success_url = reverse_lazy('index')
     template_name = 'tasks/add_employee.html'
 
-def update_employee_task(request,pk):
-    update_employee = TaskAssighn.objects.get(pk=pk)
-    form = UpdateEmployeeStatus(instance=update_employee)
-    if request.method == 'POST':
-        form = UpdateEmployeeStatus(request.POST,instance=update_employee)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    return render(request,'tasks/taskassighn_form.html',{'form':form})
 
-def update_reason_task(request,pk):
-    update_reason = TaskAssighn.objects.get(pk=pk)
-    form = UpdateReasonStatus(instance=update_reason)
-    if request.method == 'POST':
-        form = UpdateReasonStatus(request.POST,instance=update_reason)
-        if form.is_valid():
-            form.save()
-            return redirect('index')
-    return render(request,'tasks/taskassighn_form.html',{'form':form})
+
