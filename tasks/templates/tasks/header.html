@@ -35,9 +35,9 @@
                   أدارة المهام
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="">المنجزة</a></li>
-                  <li><a class="dropdown-item" href="">غير منجزة</a></li>
-                  <li><a class="dropdown-item" href=" ">تحت الإجراء</a></li>
+                  <li><a class="dropdown-item" href="{% url 'completed' %}">المنجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'incompleted' %}">غير منجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'processed' %} ">تحت الإجراء</a></li>
                   
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#"></a></li>

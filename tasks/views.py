@@ -17,10 +17,12 @@ def index(request):
     )
     complete = TaskStatus.objects.get(pk=1)
     incomplete = TaskStatus.objects.get(pk=2)
+    procceced = TaskStatus.objects.get(pk=3)
     return render(request, 'tasks/index.html', {
         'tasks': tasks,
         'complete':complete,
-        'incomplete':incomplete
+        'incomplete':incomplete,
+        'procceced':procceced
     })
 
 
@@ -41,9 +43,14 @@ def completed(request):
     return render(request, 'tasks/finished_tasks.html', {'complete':acc})
 
 def incompleted(request):
-    incomplete = TaskStatus.objects.get(pk=3)
+    incomplete = TaskStatus.objects.get(pk=2)
     acc = incomplete.taskassighn_set.all()
     return render(request, 'tasks/unfinished_tasks.html', {'incomplete':acc})
+
+def processed(request):
+    processed = TaskStatus.objects.get(pk=3)
+    acc = processed.taskassighn_set.all()
+    return render(request, 'tasks/unfinished_tasks.html', {'processed':acc})
 
 
 class AddUserView(CreateView):

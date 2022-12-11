@@ -13,6 +13,9 @@
   .red{
     color: rgb(242, 52, 0);
   }
+  .yellow{
+    color: rgb(206, 128, 32);
+  }
 
 </style>
 <h3 class="task_title">المهام اليومية للمدير التنفيذي</h3>
@@ -64,10 +67,9 @@
                   <a class="green" href="{% url 'update_task' task.pk%}">{{task.status}}</a>
                   {% elif task.status == incomplete %}
                   <a class="red" href="{% url 'update_task' task.pk%}">{{task.status}}</a>
+                  {% elif task.status == procceced %}
+                  <a class="yellow" href="{% url 'update_task' task.pk%}">{{task.status}}</a>
                 {% endif %}
-                  
-              
-                
             {% endif%}
             </td>
             <td>
