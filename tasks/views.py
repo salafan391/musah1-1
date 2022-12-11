@@ -50,7 +50,7 @@ def incompleted(request):
 def processed(request):
     processed = TaskStatus.objects.get(pk=3)
     acc = processed.taskassighn_set.all()
-    return render(request, 'tasks/unfinished_tasks.html', {'processed':acc})
+    return render(request, 'tasks/processed.html', {'processed':acc})
 
 
 class AddUserView(CreateView):
