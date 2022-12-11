@@ -30,14 +30,14 @@ class TaskAddView(CreateView):
     success_url = reverse_lazy('index')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = TaskAssighn.objects.all().order_by('-id')
+        context['tasks'] = TaskAssighn.objects.all().order_by('-id')[0]
         return context
         
 
 
 def completed(request):
-    # complete = TaskStatus.objects.get(pk=5)
-    # acc = complete.taskassighn_set.all()
+    complete = TaskStatus.objects.get(pk=1)
+    acc = complete.taskassighn_set.all()
     return render(request, 'tasks/finished_tasks.html', {'complete':acc})
 
 def incompleted(request):
