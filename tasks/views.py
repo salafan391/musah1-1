@@ -15,12 +15,12 @@ def index(request):
         Q(employee__job_status__icontains=q)|
         Q(status__state__icontains=q)
     )
-    # complete = TaskStatus.objects.get(pk=5)
-    # incomplete = TaskStatus.objects.get(pk=3)
+    complete = TaskStatus.objects.get(pk=1)
+    incomplete = TaskStatus.objects.get(pk=2)
     return render(request, 'tasks/index.html', {
         'tasks': tasks,
-        # 'complete':complete,
-        # 'incomplete':incomplete
+        'complete':complete,
+        'incomplete':incomplete
     })
 
 
@@ -30,15 +30,15 @@ class TaskAddView(CreateView):
     success_url = reverse_lazy('index')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = TaskAssighn.objects.all().order_by('-id')[0]
+        context['tasks'] = TaskAssighn.objects.all().order_by('-id')
         return context
         
 
 
-# def completed(request):
-#     # complete = TaskStatus.objects.get(pk=5)
-#     # acc = complete.taskassighn_set.all()
-#     return render(request, 'tasks/finished_tasks.html', {'complete':acc})
+def completed(request):
+    # complete = TaskStatus.objects.get(pk=5)
+    # acc = complete.taskassighn_set.all()
+    return render(request, 'tasks/finished_tasks.html', {'complete':acc})
 
 def incompleted(request):
     incomplete = TaskStatus.objects.get(pk=3)
