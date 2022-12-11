@@ -16,9 +16,12 @@ def index(request):
         Q(status__state__icontains=q)|
         Q(reason__icontains=q)
     )
-    
+    complete = TaskStatus.objects.get(pk=5)
+    incomplete = TaskStatus.objects.get(pk=3)
     return render(request, 'tasks/index.html', {
         'tasks': tasks,
+        'complete':complete,
+        'incomplete':incomplete
     })
 
 
