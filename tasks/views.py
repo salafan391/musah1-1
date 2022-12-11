@@ -13,8 +13,7 @@ def index(request):
     tasks = TaskAssighn.objects.filter(
         Q(task_desc__icontains=q)|
         Q(employee__job_status__icontains=q)|
-        Q(status__state__icontains=q)|
-        Q(reason__icontains=q)
+        Q(status__state__icontains=q)
     )
     # complete = TaskStatus.objects.get(pk=5)
     # incomplete = TaskStatus.objects.get(pk=3)
