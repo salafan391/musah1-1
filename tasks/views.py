@@ -16,6 +16,7 @@ def index(request):
         Q(status__state__icontains=q)|
         Q(reason__icontains=q)
     )
+    
     return render(request, 'tasks/index.html', {
         'tasks': tasks,
     })
