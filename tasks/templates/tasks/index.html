@@ -62,7 +62,7 @@
               {% else %}
         
                 <a class="green" href="{% url 'update_task' task.pk%}">{{task.status}}</a>
-            
+            {% endif%}
             </td>
             <td>
               {% if task.reason is None%}
