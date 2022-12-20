@@ -1,16 +1,28 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .forms import *
-from .models import TaskAssighn
+from .models import *
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView, UpdateView
+from django.db.models import Q
 # Create your views here.
 
 
 def index(request):
-    task = TaskAssighn.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    tasks = TaskAssighn.objects.filter(
+        Q(task_desc__icontains=q)|
+        Q(employee__job_status__icontains=q)|
+        Q(status__state__icontains=q)
+    )
+    complete = TaskStatus.objects.get(pk=1)
+    incomplete = TaskStatus.objects.get(pk=2)
+    procceced = TaskStatus.objects.get(pk=3)
     return render(request, 'tasks/index.html', {
-        'tasks': task,
+        'tasks': tasks,
+        'complete':complete,
+        'incomplete':incomplete,
+        'procceced':procceced
     })
 
 
@@ -18,15 +30,27 @@ class TaskAddView(CreateView):
     model = TaskAssighn
     form_class = TaskForm
     success_url = reverse_lazy('index')
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = TaskAssighn.objects.all()
-        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = TaskAssighn.objects.all().order_by('-id')[0]
+        return context
         
 
 
 def completed(request):
-    return render(request, 'tasks/finished_tasks.html', {})
+    complete = TaskStatus.objects.get(pk=1)
+    acc = complete.taskassighn_set.all()
+    return render(request, 'tasks/finished_tasks.html', {'complete':acc})
+
+def incompleted(request):
+    incomplete = TaskStatus.objects.get(pk=2)
+    acc = incomplete.taskassighn_set.all()
+    return render(request, 'tasks/unfinished_tasks.html', {'incomplete':acc})
+
+def processed(request):
+    processed = TaskStatus.objects.get(pk=3)
+    acc = processed.taskassighn_set.all()
+    return render(request, 'tasks/processed.html', {'processed':acc})
 
 
 class AddUserView(CreateView):
@@ -46,12 +70,6 @@ class UpdateUserView(UpdateView):
     template_name = 'tasks/add_user.html'
 
 
-class UpdateStatus(UpdateView):
-    model = TaskAssighn
-    form_class = UpdateForm
-    template_name = 'tasks/taskassighn_form.html'
-    success_url = reverse_lazy('index')
-
 
 def delete_task(request, pk):
     task = TaskAssighn.objects.get(pk=pk)
@@ -63,13 +81,13 @@ def delete_task(request, pk):
 
 def update_task(request, pk):
     upadte_form = TaskAssighn.objects.get(pk=pk)
-    form = TaskForm(instance=upadte_form)
+    form = TaskFormUpdate(instance=upadte_form)
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=upadte_form)
+        form = TaskFormUpdate(request.POST,instance=upadte_form )
         if form.is_valid():
             form.save()
             return redirect('index')
-    return render(request, 'tasks/taskassighn_form.html', {'form': form})
+    return render(request,'tasks/taskassighn_form.html',{'form':form})
 
 
 class AddEmployeeView(CreateView):
@@ -77,3 +95,6 @@ class AddEmployeeView(CreateView):
     form_class = AddEmployeeForm
     success_url = reverse_lazy('index')
     template_name = 'tasks/add_employee.html'
+
+
+

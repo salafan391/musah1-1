@@ -35,16 +35,17 @@
                   أدارة المهام
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'completed' %} ">المنجزة</a></li>
-                  <li><a class="dropdown-item" href="{% url 'completed' %} ">غير منجزة</a></li>
-                  <li><a class="dropdown-item" href="{% url 'completed' %} ">تحت الإجراء</a></li>
+                  <li><a class="dropdown-item" href="{% url 'completed' %}">المنجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'incompleted' %}">غير منجزة</a></li>
+                  <li><a class="dropdown-item" href="{% url 'processed' %} ">تحت الإجراء</a></li>
+                  
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#"></a></li>
                 </ul>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="بحث" aria-label="Search">
+            <form class="d-flex" role="search" method="GET" action="{% url 'index' %}">
+              <input class="form-control me-2" type="search" placeholder="بحث" aria-label="Search" name="q">
               <button class="btn btn-outline-success" type="submit">بحث</button>
             </form>
           </div>
@@ -75,7 +76,10 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="">قائمة المهام</a></li>
-                  <li><a class="dropdown-item" href="{% url 'completed' %} ">المهام المنجزة</a></li>
+                  <li><a class="dropdown-item" href="">المهام المنجزة</a></li>
+                  <li><a class="dropdown-item" href="">المهام غير المنجزة</a></li>
+
+
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#"></a></li>
                 </ul>
@@ -85,7 +89,7 @@
               </li>
             </ul>
             <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="بحث" aria-label="Search">
+              <input class="form-control me-2" type="search" placeholder="بحث" aria-label="Search" name="q">
               <button class="btn btn-outline-success" type="submit">بحث</button>
             </form>
           </div>

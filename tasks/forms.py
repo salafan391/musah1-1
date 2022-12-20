@@ -11,20 +11,34 @@ class TaskForm(ModelForm):
             'task_desc': '',
             'created_at': "تم الإنشاء بتاريخ",
             'updated_at': "تم الإنشاء بتاريخ",
-            'url':'',
             'task_number':'',
             'employee':'الموظف'
-        }
-        error_messages={
-            'enter a number':'يجب أن تدخل رقما'
         }
         widgets = {
             'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
             'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
-            'url':URLInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':
-            'رابط الملفات على الدرايف'}),
-            'employee': SelectMultiple(attrs={'class': "form-label", 'class': "form-control"}),
+            'employee': Select(attrs={'class': "form-label", 'class': "form-control"}),
 
+        }
+
+class TaskFormUpdate(ModelForm):
+    class Meta:
+        model = TaskAssighn
+        fields='__all__'
+        labels = {
+            'employee':'الموظف',
+            'task_desc': '',
+            'created_at': "تم الإنشاء بتاريخ",
+            'updated_at': "تم الإنشاء بتاريخ",
+            'task_number':'',
+            'status':'الحالة',
+            'reason':'ملاحظات'
+        }
+        
+        widgets = {
+            'task_number':NumberInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'رقم المهمة'}),
+            'task_desc': TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'وصف المهمة'}),
+            'resaon': Textarea(attrs={'class': "form-label", 'class': "form-control"})
         }
 
 
@@ -52,17 +66,6 @@ class AddUserForm(UserCreationForm):
             'email': EmailInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'البريد الإلكتروني'}),
             'last_name':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'اللقب'})
         }   
-class UpdateForm(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = ['status','reason']
-        labels={
-            'status':'الحالة',
-            'reason':'ملاحظات إضافية'
-        }
-        widgets={
-            'reason':Textarea(attrs={'class': "form-label", 'class': "form-control"})
-        }
 
 class CreateStatus(ModelForm):
     class Meta:
@@ -74,7 +77,7 @@ class CreateStatus(ModelForm):
             'reason':''
         }
         widgets={
-            'state':SelectMultiple(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
+            'state':Select(attrs={'class': "form-label", 'class': "form-control",'placeholder':'حالة الانجاز'}),
             'reason':Textarea(attrs={'class': "form-label", 'class': "form-control",'placeholder':'ملاحظات إضافية'}),
 
         }
@@ -87,7 +90,7 @@ class AddEmployeeForm(ModelForm):
             'job_status':TextInput(attrs={'class': "form-label", 'class': "form-control",'placeholder':'المسمى الوظيفي'})
         }
 
-class UpdateEmployeeStatus(ModelForm):
-    class Meta:
-        model = TaskAssighn
-        fields = ['employee']
+
+
+
+
