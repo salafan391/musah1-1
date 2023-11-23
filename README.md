@@ -3,4 +3,6 @@
 2. stay here
    ```
    python
-thats nice```
+   def add(num1.num2):
+      return num1+num2
+   ```
